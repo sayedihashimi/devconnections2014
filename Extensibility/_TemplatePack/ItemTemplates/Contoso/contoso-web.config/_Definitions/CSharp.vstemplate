@@ -9,5 +9,7 @@
   </TemplateData>
   <TemplateContent>
     <ProjectItem ReplaceParameters="true">web.config</ProjectItem>
+    <ProjectItem ReplaceParameters="true">web.Debug.config</ProjectItem>
+    <ProjectItem ReplaceParameters="true">web.Release.config</ProjectItem>
   </TemplateContent>
 </VSTemplate>
