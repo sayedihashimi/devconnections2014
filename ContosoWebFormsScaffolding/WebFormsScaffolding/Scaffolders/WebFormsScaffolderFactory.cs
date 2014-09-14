@@ -13,6 +13,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
 using Microsoft.AspNet.Scaffolding.WebForms.UI;
+using System.Windows.Media;
+using System.Drawing;
+using System.Windows.Interop;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
 {    
@@ -53,13 +58,27 @@ namespace Microsoft.AspNet.Scaffolding.WebForms.Scaffolders
             return new CodeGeneratorInformation(
                 displayName: Resources.WebFormsScaffolder_Name,
                 description: Resources.WebFormsScaffolder_Description,
-                author: "Outercurve Foundation",
+                author: "Contoso Enterprise",
                 version: new Version(1, 0, 0, 0),
                 id: typeof(WebFormsScaffolder).Name,
-                icon: null,
+                icon: ToImageSource(Resources.contoso_16),
                 gestures: null,
-                categories: new[] { "Common/Web Forms" }
+                categories: new[] { "Contoso","Contoso/Web Forms" }
             );              
+        }
+
+        /// <summary>
+        /// Helper method to convert Icon to Imagesource.
+        /// </summary>
+        /// <param name="icon">Icon</param>
+        /// <returns>Imagesource</returns>
+        public static ImageSource ToImageSource(Icon icon) {
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            return imageSource;
         }
     }
 }
