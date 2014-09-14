@@ -70,6 +70,7 @@
     <Content Include="feed.pkgdef">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="ProjectTemplates\Web\Chrome Extension\contoso-project.png" />
     <Content Include="Snippets\CSharp\Contoso\cdispose.Snippet">
       <SubType>Designer</SubType>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -115,7 +116,6 @@
     </Content>
     <Content Include="ProjectTemplates\Web\Chrome Extension\_Definitions\CSharp.vstemplate" />
     <Content Include="ProjectTemplates\Web\Chrome Extension\_preprocess.xml" />
-    <Content Include="ProjectTemplates\Web\Chrome Extension\__TemplateIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="TemplateBuilder, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
