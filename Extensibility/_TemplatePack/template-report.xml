@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TemplateReport>
   <ItemTemplates>
+    <ItemTemplate Path="ItemTemplates\Contoso\layout-cshtml\_Definitions\CSharp.vstemplate" Name="Contoso _Layout.cshtml" Description="Contoso _Layout.cshtml" ProjectType="CSharp" ProjectSubType="" />
+    <ItemTemplate Path="ItemTemplates\Contoso\assemblyinfo\_Definitions\CSharp.vstemplate" Name="Contoso AssemblyInfo.cs" Description="Contoso AssemblyInfo.cs file" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Contoso\contoso-wpp.targets\_Definitions\CSharp.vstemplate" Name="Contoso contoso.wpp.targets" Description="Contoso contoso.wpp.targets" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Contoso\css\_Definitions\CSharp.vstemplate" Name="Contoso CSS files" Description="Contoso CSS files" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Contoso\CodeTemplates\_Definitions\CSharp.vstemplate" Name="Contoso custom ASP.NET T4 files" Description="Contoso custom ASP.NET T4 files" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Contoso\fonts\_Definitions\CSharp.vstemplate" Name="Contoso font files" Description="Contoso font files" ProjectType="CSharp" ProjectSubType="" />
+    <ItemTemplate Path="ItemTemplates\Contoso\scripts\_Definitions\CSharp.vstemplate" Name="Contoso script files" Description="Contoso script files" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Contoso\contoso-web-publish\_Definitions\CSharp.vstemplate" Name="Contoso staging publish profile" Description="Contoso staging publish profile" ProjectType="CSharp" ProjectSubType="" />
     <ItemTemplate Path="ItemTemplates\Contoso\contoso-web.config\_Definitions\CSharp.vstemplate" Name="Contoso web.config" Description="Contoso web.config" ProjectType="CSharp" ProjectSubType="" />
   </ItemTemplates>
