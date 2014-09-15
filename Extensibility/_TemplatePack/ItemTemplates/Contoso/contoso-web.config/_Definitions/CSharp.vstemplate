@@ -4,12 +4,12 @@
     <Name>Contoso web.config</Name>
     <Description>Contoso web.config</Description>
     <ProjectType>CSharp</ProjectType>
-    <Icon>file-icon.png</Icon>
+    <Icon>xml-icon.png</Icon>
     <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
   </TemplateData>
   <TemplateContent>
-    <ProjectItem ReplaceParameters="true">web.config</ProjectItem>
-    <ProjectItem ReplaceParameters="true">web.Debug.config</ProjectItem>
-    <ProjectItem ReplaceParameters="true">web.Release.config</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="web.config">web.config</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="web.Debug.config">web.Debug.config</ProjectItem>
+    <ProjectItem ReplaceParameters="true" TargetFileName="web.Release.config">web.Release.config</ProjectItem>
   </TemplateContent>
 </VSTemplate>
