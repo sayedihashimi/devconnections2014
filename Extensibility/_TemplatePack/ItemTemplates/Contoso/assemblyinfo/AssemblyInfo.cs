@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("")]
-[assembly: AssemblyProduct("")]
+[assembly: AssemblyTitle("$rootnamespace$")]
+[assembly: AssemblyProduct("$rootnamespace$")]
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
 
