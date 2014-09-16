@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  
+  <PropertyGroup>
+    <SiteExtNuGetPkgVerNum Condition=" '$(SiteExtNuGetPkgVerNum)'=='' ">0.0.14</SiteExtNuGetPkgVerNum>
+    <NuGetPkgVerNum Condition=" '$(NuGetPkgVerNum)'=='' ">$(SiteExtNuGetPkgVerNum)-beta</NuGetPkgVerNum>
+    
+    
+    <Root>$(MSBuildThisFileDirectory)</Root>
+    <SourceRoot Condition=" '$(SourceRoot)'=='' ">$(Root)</SourceRoot>
+    <OutputRootNoTrailingSlash Condition=" '$(OutputRoot)'=='' ">$(SourceRoot)OutputRoot</OutputRootNoTrailingSlash>
+    <OutputRoot Condition=" '$(OutputRoot)'=='' ">$(OutputRootNoTrailingSlash)\</OutputRoot>
+
+    <ObjRootNoTrailingSlash Condition=" '$(ObjRootNoTrailingSlash)'=='' " >$(OutputRoot)obj</ObjRootNoTrailingSlash>
+    <ObjRoot Condition=" '$(ObjRoot)'=='' ">$(ObjRootNoTrailingSlash)\</ObjRoot>
+
+    <BinRootNoTrailingSlash Condition=" '$(BinRootNoTrailingSlash)'=='' ">$(OutputRootNoTrailingSlash)</BinRootNoTrailingSlash>
+    <BinRoot Condition=" '$(BinRoot)'=='' ">$(BinRootNoTrailingSlash)\</BinRoot>
+
+    <SiteExtOutputRootNoTrailingSlash Condition=" '$(SiteExtOutputRootNoTrailingSlash)'=='' ">$(BinRoot)\site-extensions</SiteExtOutputRootNoTrailingSlash>
+    <SiteExtOutputRoot Condition=" '$(SiteExtOutputRoot)'=='' ">$(SiteExtOutputRootNoTrailingSlash)\</SiteExtOutputRoot>
+
+    <MstestPath Condition=" '$(MstestPath)'=='' ">$(MSBuildProgramFiles32)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe</MstestPath>
+    
+    <!--<PackageRoot Condition=" '$(PackageRoot)'=='' ">$(OutputRoot)Nugetpkg\</PackageRoot>-->
+
+    <NugetLocalRepo Condition=" '$(NugetLocalRepo)'=='' ">C:\Temp\Nuget\LocalRepo\</NugetLocalRepo>    
+        
+    <NuSpecXmlNs Condition=" '$(NuSpecXmlNs)'=='' ">http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd</NuSpecXmlNs>
+    <NuspecXpath Condition=" '$(NuspecXpath)'=='' ">/dft:package/dft:metadata/dft:version</NuspecXpath>
+
+    <NugetLocalRepo Condition=" '$(NugetLocalRepo)'=='' ">C:\Temp\Nuget\LocalRepo\</NugetLocalRepo>
+
+    <RestorePackages Condition=" '$(RestorePackages)'=='' ">true</RestorePackages>
+    <Configuration Condition=" '$(Configuration)'=='' ">Release</Configuration>
+    
+    <ImgCompSourceRoot Condition=" '$(ImgCompSourceRoot)'=='' ">$(SourceRoot)ImageCompressor.Job\</ImgCompSourceRoot>
+    <TextMinSourceRoot Condition=" '$(TextMinSourceRoot)'=='' ">$(SourceRoot)TextMinifier.Job\</TextMinSourceRoot>
+    <SharedSourceRoot Condition=" '$(SharedSourceRoot)'=='' ">$(SourceRoot)AzureJobs.NuGet.Shared\</SharedSourceRoot>
+    
+    <OutputPathImgComp Condition=" '$(OutputPathImgComp)'=='' ">$(ObjRoot)ImageCompressor.Job\</OutputPathImgComp>
+    <OutputPathTextMin Condition=" '$(OutputPathTextMin)'=='' ">$(ObjRoot)TextMinifier.Job\</OutputPathTextMin>
+    <OutputPathShared Condition=" '$(OutputPathShared)'=='' ">$(ObjRoot)AzureJobs.NuGet.Shared\</OutputPathShared>
+    
+    <OutputPathSiteExtWeb Condition=" '$(OutputPathSiteExtWeb)'=='' ">$(ObjRoot)AzureJobs.SiteExtension.Web\</OutputPathSiteExtWeb>
+    <SiteExtPubWebsitesContentPath Condition=" ''=='' ">$(OutputPathSiteExtWeb)_PublishedWebsites\AzureJobs.SiteExtension.Web\</SiteExtPubWebsitesContentPath>
+
+    <GetNugetTargetsPath Condition=" '$(GetNugetTargetsPath)'=='' ">$(MSBuildThisFileDirectory)getnuget.targets</GetNugetTargetsPath>
+  </PropertyGroup>
+
+  <Import Project="$(GetNugetTargetsPath)"/>
+</Project>

@@ -1,0 +1,140 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="FullBuild">
+
+  <!-- Import the shared properties -->
+  <PropertyGroup>
+    <SharedProps Condition=" '$(SharedProps)'=='' ">$(MSBuildThisFileDirectory)shared.props</SharedProps>
+  </PropertyGroup>
+
+  <Import Project="$(SharedProps)"/> 
+    
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)'=='' ">Release</Configuration>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectsToBuild Include="$(SourceRoot)ImageCompressor.Job\ImageCompressor.Job.csproj">
+      <AdditionalProperties>OutDir=$(OutputPathImgComp)</AdditionalProperties>
+    </ProjectsToBuild>
+    
+    <ProjectsToBuild Include="$(SourceRoot)TextMinifier.Job\TextMinifier.Job.csproj">
+      <AdditionalProperties>OutDir=$(OutputPathTextMin)</AdditionalProperties>
+    </ProjectsToBuild>
+
+    <ProjectsToBuild Include="$(SourceRoot)AzureJobs.SiteExtension.Web\AzureJobs.SiteExtension.Web.csproj">
+      <AdditionalProperties>OutDir=$(OutputPathSiteExtWeb)</AdditionalProperties>
+    </ProjectsToBuild>
+
+    <ProjectsToBuild Include="$(SourceRoot)AzureJobsTests\AzureJobsTests.csproj">
+      <AdditionalProperties>OutDir=$(ObjRoot)AzureJobsTests\</AdditionalProperties>
+    </ProjectsToBuild>
+    
+    <SharedFiles Include="$(SharedSourceRoot)**\*"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <FullBuildDependsOn>
+      GetNuget;
+      CleanAndInitalize;
+      BuildProjects;
+      ExecuteTests;
+      CreateNugetPackages;
+    </FullBuildDependsOn>
+    <BuildProjectsDependsOn>      
+      CoreBuildProjects;
+    </BuildProjectsDependsOn>
+  </PropertyGroup>
+
+  <Target Name="FullBuild" DependsOnTargets="$(FullBuildDependsOn)" />
+
+  <Target Name="BuildProjects" DependsOnTargets="CoreBuildProjects"/>
+  <Target Name="CoreBuildProjects">
+    <Message Text="Building projects now [@(ProjectsToBuild)]" Importance="high"/>
+    <MSBuild Projects="@(ProjectsToBuild)" Properties="Configuration=$(Configuration);OutDir=$(ObjRoot)"/>
+  </Target>
+  
+  <PropertyGroup>
+    <CreateNugetPackagesDependsOn>
+      GetNuget;
+      <!--BuildProjects;-->
+      CopySharedFilesToOutputDir;
+      CoreCreateNugetPackages;
+    </CreateNugetPackagesDependsOn>
+  </PropertyGroup>
+  <Target Name="CreateNugetPackages" DependsOnTargets="$(CreateNugetPackagesDependsOn)" />
+
+  <Target Name="CoreCreateNugetPackages">
+    <PropertyGroup>
+      <_spfull>$([System.IO.Path]::GetFullPath(`$(SharedProps)`))</_spfull>
+    </PropertyGroup>
+    <ItemGroup>
+      <NugetBuildFiles Include="$(OutputPathImgComp)imgcomp.proj">
+        <AdditionalProperties>SharedProps=$(_spfull)</AdditionalProperties>
+      </NugetBuildFiles>
+      
+      <NugetBuildFiles Include="$(OutputPathTextMin)textmin.proj">
+        <AdditionalProperties>SharedProps=$(_spfull)</AdditionalProperties>
+      </NugetBuildFiles>
+      
+      <NugetBuildFiles Include="$(OutputPathShared)shared.proj">
+        <AdditionalProperties>SharedProps=$(_spfull)</AdditionalProperties>
+      </NugetBuildFiles>      
+    </ItemGroup>
+    
+    <MSBuild Projects="@(NugetBuildFiles)"/>
+  </Target>
+
+  <PropertyGroup>
+    <CopySharedFilesToOutputDirDependsOn>
+      $(CopySharedFilesToOutputDirDependsOn);
+    </CopySharedFilesToOutputDirDependsOn>
+  </PropertyGroup>
+  
+  <Target Name="CopySharedFilesToOutputDir" DependsOnTargets="$(CopySharedFilesToOutputDirDependsOn)">
+    <Message Text="Copying shared files to output directory." Importance="low" />
+    <Message Text="SharedFiles: [@(SharedFiles)]" Importance="low"/>
+
+    <MakeDir Directories="$(OutputPathShared)" />
+    <Copy SourceFiles="@(SharedFiles)"
+          DestinationFiles="@(SharedFiles->'$(OutputPathShared)%(RecursiveDir)%(Filename)%(Extension)')"/>
+  </Target>
+  
+  <Target Name="CleanAndInitalize">
+    <MakeDir Directories="$(OutputRoot);$(ObjRoot);$(BinRoot);$(PackageRoot)"/>
+  </Target>
+
+  <PropertyGroup>
+    <ExecuteTestsDependsOn>
+      $(ExecuteTestsDependsOn);
+      CoreBuildProjects;
+      FindTests;
+      CoreExecuteTests;
+    </ExecuteTestsDependsOn>
+  </PropertyGroup>
+
+  <Target Name="ExecuteTests" DependsOnTargets="$(ExecuteTestsDependsOn)" />
+
+  <Target Name="CoreExecuteTests" Outputs="%(AssembliesToTest.FullPath)">
+    <PropertyGroup>
+      <_assmtotest>%(AssembliesToTest.FullPath)</_assmtotest>
+      <_cmd>"$(MstestPath)" /testcontainer:$(_assmtotest)</_cmd>
+    </PropertyGroup>
+    <!-- call mstest -->
+    <Message Text="Execute tests for [$(_assmtotest)], with command [$(_cmd)]" />
+
+    <Exec  Command="$(_cmd)"
+           Condition="Exists('$(MstestPath)')"/>
+    
+    <Warning Text="Unable to execute tests because mstest was not found at [$(MstestPath)]"
+             Condition="!Exists('$(MstestPath)')" />
+  </Target>
+
+  <Target Name="FindTests" DependsOnTargets="CoreBuildProjects">
+    <!-- search through output folder for assemblies ending with Tests -->
+    <ItemGroup>
+      <AssembliesToTest Include="$(ObjRoot)**\*Tests.dll"/>
+    </ItemGroup>
+
+    <Message Text="Found the following assemblies to execute tests on [@(AssembliesToTest)]"/>
+    
+  </Target>
+</Project>
