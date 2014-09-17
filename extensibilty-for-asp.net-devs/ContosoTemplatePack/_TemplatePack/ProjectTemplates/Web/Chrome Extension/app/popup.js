@@ -22,7 +22,7 @@ var kittenGenerator = {
    */
   searchOnFlickr_: 'https://secure.flickr.com/services/rest/?' +
       'method=flickr.photos.search&' +
-      'api_key=90485e931f687a9b9c2a66bf58a3861a&' +
+      'api_key=7dd71f4de68883f4f69f514451f7488c&' +
       'text=' + encodeURIComponent(QUERY) + '&' +
       'safe_search=1&' +
       'content_type=1&' +
