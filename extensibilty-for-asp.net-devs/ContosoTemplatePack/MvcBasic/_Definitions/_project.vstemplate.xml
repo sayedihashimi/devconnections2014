@@ -2,7 +2,7 @@
   <TemplateData>
     <Name>Contoso Basic MVC</Name>
     <Description>A basic MVC template for Contoso</Description>
-    <DefaultName>ContosoWeb</DefaultName>
+    <DefaultName>ContosoMvc</DefaultName>
     
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>

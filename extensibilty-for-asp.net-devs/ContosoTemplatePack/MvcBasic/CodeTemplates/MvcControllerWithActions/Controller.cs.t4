@@ -13,7 +13,7 @@ namespace <#= Namespace #>
 	using System.Web;
 	using System.Web.Mvc;
 
-    public class <#= ControllerName #> : ContosoShared.ContosoMvcController
+    public class <#= ControllerName #> : ContosoMvcController
     {
         //
         // GET: <#= (!String.IsNullOrEmpty(AreaName)) ? ("/" + AreaName) : String.Empty #>/<#= ControllerRootName #>/
